@@ -48,7 +48,7 @@ class Scanner {
             scanToken();
         }
 
-        tokens.add(new Token(EOF, "", null, line));
+        tokens.add(new Token(EOF, "EOF", null, line));
         return tokens;
     }
 
@@ -137,7 +137,7 @@ class Scanner {
         while (peek() != '\n' && !isAtEnd())
             advance();
 
-        String value = source.substring(start, current - 1);
+        String value = source.substring(start, current);
         addToken(COMMENT, value, value);
     }
 
