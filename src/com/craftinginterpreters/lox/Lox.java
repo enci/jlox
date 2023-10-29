@@ -53,6 +53,11 @@ public class Lox {
         }
     }
 
+    static void runtimeError(RuntimeError error) {
+        System.err.println(error.getMessage() + "\n[line " + error.token.line + "]");
+        hadRuntimeError = true;
+    }
+
     private static void report(int line, String where, String message) {
         System.err.println("[line " + line + "] Error" + where + ": " + message);
         hadError = true;
@@ -70,11 +75,16 @@ public class Lox {
         System.out.println("-------------------- Parsing --------------------");
         Parser parser = new Parser(tokens);
         Expr expression = parser.parse();
-
-        // Stop if there was a syntax error.
-        if(hadError) return;
+        if(hadError) System.exit(65);
+        if(expression == null) return;
         System.out.println(new AstPrinter().print(expression));
+
+        System.out.println("-------------------- Evaluating --------------------");
+        Interpreter interpreter = new Interpreter();
+        interpreter.interpret(expression);
+        if (hadRuntimeError) System.exit(70);
     }
 
     static boolean hadError = false;
+    static boolean hadRuntimeError = false;
 }
