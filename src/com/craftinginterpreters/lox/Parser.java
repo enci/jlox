@@ -67,8 +67,9 @@ public class Parser {
         return tokens.get(current - 1);
     }
 
-    private void consume(TokenType type, String message) {
-        if(check(type)) return;
+    private Token consume(TokenType type, String message) {
+        if(check(type))
+            return advance();
         throw error(peek(), message);
     }
 
@@ -138,6 +139,7 @@ public class Parser {
             return new Expr.Grouping(expr);
         }
 
+        assert (false); // Unreachable.
         return null;
     }
 }

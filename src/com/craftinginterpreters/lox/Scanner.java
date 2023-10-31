@@ -138,7 +138,7 @@ class Scanner {
             advance();
 
         String value = source.substring(start, current);
-        addToken(COMMENT, value, value);
+        // addToken(COMMENT, value, value);
     }
 
     private boolean isDigit(char c) {
@@ -156,7 +156,7 @@ class Scanner {
         }
         current += 2;
         String value = source.substring(start, current);
-        addToken(BLOCK_COMMENT, value, value);
+        // addToken(BLOCK_COMMENT, value, value);
     }
 
     private boolean isAlpha(char c) {
